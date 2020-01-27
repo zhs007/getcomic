@@ -1,0 +1,32 @@
+{
+  "name": "getcomic",
+  "version": "0.1.1",
+  "description": "get comic",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhs007/getcomic.git"
+  },
+  "keywords": [
+    "comic"
+  ],
+  "author": "zerrozhao@gmail.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zhs007/getcomic/issues"
+  },
+  "homepage": "https://github.com/zhs007/getcomic#readme",
+  "dependencies": {
+    "commander": "^4.1.0",
+    "jarviscrawlercore": "^0.3.102",
+    "pdfkit": "^0.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^25.1.0"
+  }
+}
