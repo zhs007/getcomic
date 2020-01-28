@@ -1,0 +1,5 @@
+source: manhuadb
+comicid: 545
+roottype: 0
+isdebug: false
+comicrootpath: ./comic
