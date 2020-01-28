@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const {start} = require('../src/start.js');
+const {log} = require('jarviscrawlercore');
 
 program
     .command('start [cfgfn]')
