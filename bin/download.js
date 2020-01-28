@@ -7,6 +7,7 @@ program
     .command('downloadcomic [comicid]')
     .description('download comic')
     .option('-o, --output [filename]', 'export output file')
+    .option('-t, --type [type]', 'export type')
     .option('-d, --debug [isdebug]', 'debug mode')
     .action(function(comicid, options) {
       const isdebug = options.debug === 'true';
@@ -15,8 +16,18 @@ program
       const output = options.output;
       log.console('output - ', output);
 
+      let roottype = -1;
+      if (options.type) {
+        try {
+          const rt = parseInt(options.type);
+          roottype = rt;
+        } catch (err) {
+          log.warn('type must be an integer');
+        }
+      }
+
       (async () => {
-        await downloadComic(isdebug, comicid, output);
+        await downloadComic(isdebug, comicid, roottype, output);
 
         process.exit(-1);
       })().catch((err) => {
