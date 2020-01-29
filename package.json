@@ -1,6 +1,6 @@
 {
   "name": "getcomic",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "description": "get comic",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "homepage": "https://github.com/zhs007/getcomic#readme",
   "dependencies": {
     "commander": "^4.1.0",
-    "jarviscrawlercore": "^0.3.108",
+    "jarviscrawlercore": "^0.3.109",
     "pdfkit": "^0.11.0",
     "sharp": "^0.24.0",
     "yaml-js": "^0.2.3"

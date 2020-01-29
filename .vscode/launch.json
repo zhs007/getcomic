@@ -12,6 +12,13 @@
             "request": "launch",
             "name": "genpdf",
             "program": "${workspaceFolder}/samples/genpdf.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "start",
+            "program": "${workspaceFolder}/bin/getcomic.js",
+            "args": ["start", "./cfg/config.yaml"]
         }
     ]
 }

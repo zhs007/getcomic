@@ -9,11 +9,19 @@ const {genPDF} = require('../src/pdf.utils');
   //   );
   // }
 
-  for (let i = 11; i <= 14; ++i) {
+  // for (let i = 11; i <= 14; ++i) {
+  //   await genPDF(
+  //       '715_' + i + '.pdf',
+  //       '',
+  //       '../jarviscrawlercore/comic/715/' + i,
+  //   );
+  // }
+
+  for (let i = 1; i <= 24; ++i) {
     await genPDF(
-        '715_' + i + '.pdf',
+        '147_' + i + '.pdf',
         '',
-        '../jarviscrawlercore/comic/715/' + i,
+        '../jarviscrawlercore/comic/147/' + i,
     );
   }
 
