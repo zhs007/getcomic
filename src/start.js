@@ -25,7 +25,7 @@ async function start(fn) {
       cfg.isdebug,
       cfg.comicid,
       cfg.roottype,
-      path.join(cfg.comicrootpath, cfg.comicid),
+      path.join(cfg.comicrootpath, cfg.comicid.toString()),
   );
 }
 
