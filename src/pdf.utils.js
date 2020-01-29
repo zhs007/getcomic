@@ -8,15 +8,18 @@ const {guessPageSize} = require('./pagesize');
 /**
  * genPDF - generate a pdf file
  * @param {string} fn - filename
+ * @param {string} title - title
  * @param {string} rootpath - rootpath
  */
-async function genPDF(fn, rootpath) {
+async function genPDF(fn, title, rootpath) {
   const s = await guessPageSize(rootpath);
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       // layout: 'landscape',
       size: [s.w, s.h],
     });
+
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
     // doc.pipe(blobStream());
