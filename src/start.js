@@ -43,7 +43,7 @@ async function start(fn) {
         continue;
       }
 
-      genPDF(
+      await genPDF(
           path.join(
               cfg.comicrootpath,
               cfg.comicid.toString(),
