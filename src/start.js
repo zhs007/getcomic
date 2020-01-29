@@ -1,5 +1,6 @@
 const {loadConfig, checkConfig} = require('./config.js');
 const {log, downloadComic} = require('jarviscrawlercore');
+const path = require('path');
 
 /**
  * start
@@ -24,7 +25,7 @@ async function start(fn) {
       cfg.isdebug,
       cfg.comicid,
       cfg.roottype,
-      cfg.comicrootpath,
+      path.join(cfg.comicrootpath, cfg.comicid),
   );
 }
 
