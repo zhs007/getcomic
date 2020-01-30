@@ -2,6 +2,7 @@ const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
 const {guessPageSize} = require('./pagesize');
+const {log} = require('jarviscrawlercore');
 // const blobStream = require('blob-stream');
 // const {getImageSize} = require('./img.utils');
 
@@ -13,6 +14,12 @@ const {guessPageSize} = require('./pagesize');
  */
 async function genPDF(fn, title, rootpath) {
   const s = await guessPageSize(rootpath);
+  if (s == undefined) {
+    log.error('genPDF ' + rootpath + 'non-files');
+
+    return;
+  }
+
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       // layout: 'landscape',
