@@ -40,3 +40,5 @@ docker stop getcomic
 docker rm getcomic
 docker run -d -v $PWD/cfg:/usr/src/app/cfg -v $PWD/comic:/usr/src/app/comic --name getcomic zerrozhao/getcomic
 ```
+
+当查看该进程已结束后，漫画就下载完了，可以通过 ``docker ps`` 查看。 

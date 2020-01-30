@@ -47,7 +47,8 @@ async function start(fn) {
           path.join(
               cfg.comicrootpath,
               cfg.comicid.toString(),
-              cfg.comicid + '_' + comicjson.books[i].name + '.pdf',
+              comicjson.books[i].title + '.pdf',
+              // cfg.comicid + '_' + comicjson.books[i].name + '.pdf',
           ),
           comicjson.books[i].title,
           path.join(
