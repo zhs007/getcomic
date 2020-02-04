@@ -47,6 +47,20 @@ function checkConfig(cfg) {
     cfg.comicrootpath = './comic';
   }
 
+  if (cfg.outputpdf == undefined) {
+    cfg.outputpdf = false;
+  }
+
+  if (cfg.publishtelegraph == undefined) {
+    cfg.publishtelegraph = false;
+  }
+
+  if (cfg.publishtelegraph) {
+    if (!cfg.telegraphconfig) {
+      cfg.telegraphconfig = './cfg/telegraph.yaml';
+    }
+  }
+
   return undefined;
 }
 

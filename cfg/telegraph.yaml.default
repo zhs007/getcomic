@@ -1,0 +1,10 @@
+# 账号，按我的习惯一般全小写字母加数字，不确定是否有限制
+shortname: zerro
+# 作者名
+authorname: Zerro Zhao
+# token，如果是新建一个账号，第一次是不知道token的，启动一次以后，将输出的token填到这里
+token: 
+# 上传文件超时
+timeout: 30000
+# 输出目录
+outputpath: ./telegraphdata

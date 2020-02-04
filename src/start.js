@@ -1,6 +1,7 @@
 const {loadConfig, checkConfig} = require('./config.js');
 const {genPDF} = require('./pdf.utils');
 const {log, downloadComic} = require('jarviscrawlercore');
+const {telegraph} = require('adarender');
 const path = require('path');
 const fs = require('fs');
 
@@ -23,6 +24,25 @@ async function start(fn) {
     return;
   }
 
+  let tgobj;
+  if (cfg.publishtelegraph) {
+    const ret = await telegraph.initAccount(cfg.telegraphconfig);
+    if (ret.error) {
+      console.log('telegraph.initAccount fail. ' + ret.error);
+
+      return;
+    }
+
+    console.log('telegraph.initAccount ' + JSON.stringify(ret.telegraph));
+    tgobj = ret.telegraph;
+
+    const ai = await telegraph.getAccountInfo(tgobj);
+    console.log('telegraph.getAccountInfo ' + JSON.stringify(ai));
+
+    const pl = await telegraph.getTotalPageList(tgobj);
+    console.log('telegraph.getTotalPageList ' + JSON.stringify(pl));
+  }
+
   await downloadComic(
       cfg.isdebug,
       cfg.comicid,
@@ -43,20 +63,50 @@ async function start(fn) {
         continue;
       }
 
-      await genPDF(
-          path.join(
-              cfg.comicrootpath,
-              cfg.comicid.toString(),
-              comicjson.books[i].title + '.pdf',
-              // cfg.comicid + '_' + comicjson.books[i].name + '.pdf',
-          ),
-          comicjson.books[i].title,
-          path.join(
-              cfg.comicrootpath,
-              cfg.comicid.toString(),
-              comicjson.books[i].name,
-          ),
-      );
+      if (cfg.outputpdf) {
+        await genPDF(
+            path.join(
+                cfg.comicrootpath,
+                cfg.comicid.toString(),
+                comicjson.books[i].title + '.pdf',
+            // cfg.comicid + '_' + comicjson.books[i].name + '.pdf',
+            ),
+            comicjson.books[i].title,
+            path.join(
+                cfg.comicrootpath,
+                cfg.comicid.toString(),
+                comicjson.books[i].name,
+            ),
+        );
+      }
+
+      if (tgobj) {
+        const page = await telegraph.publishImgs(
+            tgobj,
+            comicjson.name + '-' + comicjson.books[i].name,
+            (j) => {
+              const fn = path.join(
+                  cfg.comicrootpath,
+                  cfg.comicid.toString(),
+                  comicjson.books[i].name,
+                  j + '.jpg',
+              );
+              if (fs.existsSync(fn)) {
+                return fn;
+              }
+
+              return;
+            },
+            1,
+            999,
+        );
+        console.log('telegraph.publishImgs ' + JSON.stringify(page));
+      }
+    }
+
+    if (tgobj) {
+      const pl = await telegraph.getTotalPageList(tgobj);
+      console.log('telegraph.getTotalPageList ' + JSON.stringify(pl));
     }
   } catch (err) {
     log.error('start.loadjson error', err);

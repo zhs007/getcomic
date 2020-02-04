@@ -1,2 +1,5 @@
 comic
 node_modules
+.github
+.vscode
+telegraphdata
