@@ -66,6 +66,8 @@ docker run -d -v $PWD/cfg:/usr/src/app/cfg -v $PWD/comic:/usr/src/app/comic --na
 
 - 当查看该进程已结束后，漫画就下载完了，可以通过 ``docker ps`` 查看。 
 - 内部有各种错误处理机制，但万一被ban或者别的网络错误，可能会很长时间没有反应，这时重启即可，前面已经下载的不会重复下载，中间有缺页的也会再次补齐。
+- 如果使用docker方式，需要版本更新时，直接执行 ``docker pull zerrozhao/getcomic`` 即可更新到最新版，配置文件等都会向下兼容。
+- 如果是npm安装的，需要版本更新时，直接执行 ``npm i getcomic -g`` 即可。
 - 发布到``telegraph``时，前面会有一个``upload``图片的过程，由于``telegraph``对同ip上传图片频次有限制，可能会提示过段时间再试，建议间隔1小时重启，前面已经上传的文件不会重新上传。
 - 关于``telegraph``内容，可以直接查看``telegraphdata``下面的``json``文件，每次重启，都会拉取最新的数据，包括阅读数等。
 - 如果要发布到``telegraph``，``title``尽量不要设置为``account``。
