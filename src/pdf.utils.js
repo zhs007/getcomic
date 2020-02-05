@@ -20,7 +20,7 @@ async function genPDF(fn, title, rootpath) {
     return;
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const doc = new PDFDocument({
       // layout: 'landscape',
       size: [s.w, s.h],
@@ -44,7 +44,7 @@ async function genPDF(fn, title, rootpath) {
       // doc.addPage().image(cifn, 0, 0);
       // const cs = getImageSize(cifn);
 
-      if (isValidImage(cifn)) {
+      if (await isValidImage(cifn)) {
         doc.image(cifn, 0, 0, {
           fit: [s.w, s.h],
           align: 'center',
