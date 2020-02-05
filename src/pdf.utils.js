@@ -44,14 +44,19 @@ async function genPDF(fn, title, rootpath) {
       // doc.addPage().image(cifn, 0, 0);
       // const cs = getImageSize(cifn);
 
-      if (await isValidImage(cifn)) {
-        doc.image(cifn, 0, 0, {
-          fit: [s.w, s.h],
-          align: 'center',
-          valign: 'center',
-        });
+      const isvalidimg = await isValidImage(cifn);
+      if (isvalidimg) {
+        try {
+          doc.image(cifn, 0, 0, {
+            fit: [s.w, s.h],
+            align: 'center',
+            valign: 'center',
+          });
+        } catch (err) {
+          doc.text('缺页或页面文件损坏。' + i);
+        }
       } else {
-        doc.text('缺页或页面文件损坏。');
+        doc.text('缺页或页面文件损坏。' + i);
       }
 
       doc.addPage();
