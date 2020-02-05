@@ -4,7 +4,7 @@ const path = require('path');
 const {guessPageSize} = require('./pagesize');
 const {log} = require('jarviscrawlercore');
 // const blobStream = require('blob-stream');
-// const {getImageSize} = require('./img.utils');
+const {isValidImage} = require('./img.utils');
 
 /**
  * genPDF - generate a pdf file
@@ -43,11 +43,17 @@ async function genPDF(fn, title, rootpath) {
       // doc.addPage().text(cifn);
       // doc.addPage().image(cifn, 0, 0);
       // const cs = getImageSize(cifn);
-      doc.image(cifn, 0, 0, {
-        fit: [s.w, s.h],
-        align: 'center',
-        valign: 'center',
-      });
+
+      if (isValidImage(cifn)) {
+        doc.image(cifn, 0, 0, {
+          fit: [s.w, s.h],
+          align: 'center',
+          valign: 'center',
+        });
+      } else {
+        doc.text('缺页或页面文件损坏。');
+      }
+
       doc.addPage();
       i++;
     }

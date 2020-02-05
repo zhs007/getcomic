@@ -20,4 +20,23 @@ async function getImageSize(fn) {
   return undefined;
 }
 
+/**
+ * isValidImage - is valid image file
+ * @param {string} fn - filename
+ * @return {boolean} isvalid - isvalid
+ */
+async function isValidImage(fn) {
+  try {
+    const img = await sharp(fn);
+    if (img) {
+      return true;
+    }
+  } catch (err) {
+    log.error('isValidImage ' + fn + ' error', err);
+  }
+
+  return false;
+}
+
 exports.getImageSize = getImageSize;
+exports.isValidImage = isValidImage;
