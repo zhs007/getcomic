@@ -53,10 +53,10 @@ async function genPDF(fn, title, rootpath) {
             valign: 'center',
           });
         } catch (err) {
-          doc.text('缺页或页面文件损坏。' + i);
+          doc.text('404 - Missing pages or damaged file ' + i);
         }
       } else {
-        doc.text('缺页或页面文件损坏。' + i);
+        doc.text('404 - Missing pages or damaged file ' + i);
       }
 
       doc.addPage();
