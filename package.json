@@ -1,6 +1,6 @@
 {
   "name": "getcomic",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "get comic",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "dependencies": {
     "adarender": "^0.6.40",
     "commander": "^4.1.1",
-    "jarviscrawlercore": "^0.5.25",
+    "jarviscrawlercore": "^0.5.28",
     "pdfkit": "^0.11.0",
     "sharp": "^0.24.0",
     "yaml-js": "^0.2.3"
