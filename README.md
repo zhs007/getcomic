@@ -4,7 +4,9 @@
 
 考虑到国内网络环境，建议通过docker来使用。
 
-暂时只支持 ``manhuadb`` 一个源，暂时只支持pdf输出方式，发布到线上环境也只支持``telegraph``。
+暂时只支持 ``manhuadb`` 和 ``manhuagui``，暂时只支持pdf输出方式，发布到线上环境也只支持``telegraph``。  
+``manhuadb``普遍质量高一些，但有些漫画不全，而且有些漫画会缺页严重，因此后面支持了 ``manhuagui``。  
+建议优先使用 ``manhuadb`` 来下载，缺失的部分用 ``manhuagui`` 补完。
 
 ### docker下的使用说明
 
@@ -86,6 +88,10 @@ npm i getcomic -g
 少量测试用例，jest即可执行。
 
 ### 更新说明
+
+##### v0.3
+
+- 新增源 ``manhuagui``
 
 ##### v0.2
 
