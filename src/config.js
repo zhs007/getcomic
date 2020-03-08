@@ -28,7 +28,7 @@ function checkConfig(cfg) {
   }
 
   if (!cfg.source) {
-    return new Error('no config.source');
+    cfg.source = 'manhuadb';
   }
 
   if (!cfg.comicid) {

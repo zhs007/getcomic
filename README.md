@@ -92,6 +92,7 @@ npm i getcomic -g
 ##### v0.3
 
 - 新增源 ``manhuagui``
+- 修正了某些漫画，对pdf页面大小判断不准确的bug
 
 ##### v0.2
 

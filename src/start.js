@@ -46,8 +46,10 @@ async function start(fn) {
   await downloadComic(
       cfg.isdebug,
       cfg.comicid,
+      cfg.bookid,
       cfg.roottype,
       path.join(cfg.comicrootpath, cfg.comicid.toString()),
+      cfg.source,
   );
 
   try {

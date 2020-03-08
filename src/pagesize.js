@@ -1,4 +1,4 @@
-const {getImageSize} = require('./img.utils');
+const {getImageSize, isJPG} = require('./img.utils');
 const fs = require('fs');
 const path = require('path');
 const {log} = require('jarviscrawlercore');
@@ -12,7 +12,12 @@ const {log} = require('jarviscrawlercore');
  */
 function findSize(lst, w, h) {
   for (let i = 0; i < lst.length; ++i) {
-    if (lst[i].w == w && lst[i].h == h) {
+    if (
+      w >= lst[i].w * 0.95 &&
+      w <= lst[i].w * 1.05 &&
+      h >= lst[i].h * 0.95 &&
+      h <= lst[i].h * 1.05
+    ) {
       return i;
     }
   }
@@ -45,21 +50,6 @@ function countSize(lst, per) {
 }
 
 /**
- * isJPG - is a jpg file
- * @param {string} fn - filename
- * @return {boolean} isjpg - is a jpg file
- */
-function isJPG(fn) {
-  const lfn = fn.toLowerCase();
-  const arr = lfn.split('.');
-  if (arr[arr.length - 1] == 'jpg' || arr[arr.length - 1] == 'jpeg') {
-    return true;
-  }
-
-  return false;
-}
-
-/**
  * guessPageSize - guess page size
  * @param {string} rootpath - rootpath
  * @return {object} obj - {w, h}
@@ -76,6 +66,9 @@ async function guessPageSize(rootpath) {
         if (csi == -1) {
           lst.push({w: cs.w, h: cs.h, n: 1});
         } else {
+          lst[csi].w = (lst[csi].w * lst[csi].n + cs.w) / (lst[csi].n + 1);
+          lst[csi].h = (lst[csi].h * lst[csi].n + cs.h) / (lst[csi].n + 1);
+
           lst[csi].n++;
         }
 

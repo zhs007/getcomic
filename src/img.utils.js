@@ -38,5 +38,37 @@ async function isValidImage(fn) {
   return false;
 }
 
+/**
+ * isJPG - is a jpg file
+ * @param {string} fn - filename
+ * @return {boolean} isjpg - is a jpg file
+ */
+function isJPG(fn) {
+  const lfn = fn.toLowerCase();
+  const arr = lfn.split('.');
+  if (arr[arr.length - 1] == 'jpg' || arr[arr.length - 1] == 'jpeg') {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * isWebp - is a webp file
+ * @param {string} fn - filename
+ * @return {boolean} iswebp - is a webp file
+ */
+function isWebp(fn) {
+  const lfn = fn.toLowerCase();
+  const arr = lfn.split('.');
+  if (arr[arr.length - 1] == 'webp') {
+    return true;
+  }
+
+  return false;
+}
+
 exports.getImageSize = getImageSize;
 exports.isValidImage = isValidImage;
+exports.isJPG = isJPG;
+exports.isWebp = isWebp;

@@ -9,6 +9,8 @@ program
     .option('-o, --output [filename]', 'export output file')
     .option('-t, --type [type]', 'export type')
     .option('-d, --debug [isdebug]', 'debug mode')
+    .option('-s, --source [source]', 'source')
+    .option('-b, --bookid [bookid]', 'bookid')
     .action(function(comicid, options) {
       const isdebug = options.debug === 'true';
       log.console('debug - ', isdebug);
@@ -26,8 +28,18 @@ program
         }
       }
 
+      let bookid = '';
+      if (options.bookid) {
+        bookid = options.bookid;
+      }
+
+      let source = 'manhuadb';
+      if (options.source) {
+        source = options.source;
+      }
+
       (async () => {
-        await downloadComic(isdebug, comicid, roottype, output);
+        await downloadComic(isdebug, comicid, bookid, roottype, output, source);
 
         process.exit(-1);
       })().catch((err) => {
