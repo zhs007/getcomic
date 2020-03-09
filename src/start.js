@@ -1,6 +1,7 @@
 const {loadConfig, checkConfig} = require('./config.js');
 const {genPDF} = require('./pdf.utils');
-const {log, downloadComic} = require('jarviscrawlercore');
+const {webp2jpg} = require('./imgs.utils');
+const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
 const path = require('path');
 const fs = require('fs');
@@ -61,11 +62,28 @@ async function start(fn) {
     const comicjsonbuf = fs.readFileSync(comicjsonfn);
     const comicjson = JSON.parse(comicjsonbuf);
     for (let i = 0; i < comicjson.books.length; ++i) {
-      if (cfg.roottype >= 0 && cfg.roottype != comicjson.books[i].rootType) {
-        continue;
+      if (!cfg.bookid) {
+        if (cfg.roottype >= 0 && cfg.roottype != comicjson.books[i].rootType) {
+          continue;
+        }
+      } else {
+        const cbret = parseComicBookURL(comicjson.books[i].url);
+        if (cbret instanceof Error || cbret.bookid != cfg.bookid) {
+          continue;
+        }
       }
 
       if (cfg.outputpdf) {
+        if (cfg.source == 'manhuagui') {
+          await webp2jpg(
+              path.join(
+                  cfg.comicrootpath,
+                  cfg.comicid.toString(),
+                  comicjson.books[i].name,
+              ),
+          );
+        }
+
         await genPDF(
             path.join(
                 cfg.comicrootpath,

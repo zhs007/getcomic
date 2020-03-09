@@ -26,8 +26,8 @@ const {webp2jpg} = require('../src/imgs.utils');
   //   );
   // }
 
-  await webp2jpg('../jarviscrawlercore/comic/1769/第03卷');
-  await genPDF('1769-3.pdf', '烙印战士 第3卷', '../jarviscrawlercore/comic/1769/第03卷/');
+  await webp2jpg('comic/416/第07卷');
+  await genPDF('416-7.pdf', '城市猎人 第7卷', 'comic/416/第07卷');
   // await genPDF('715_2.pdf', '../jarviscrawlercore/comic/715/2');
 
   process.exit(-1);
