@@ -105,4 +105,67 @@ async function guessPageSize(rootpath) {
   return undefined;
 }
 
+/**
+ * guessPageSize2 - guess page size v2
+ * @param {string | array} rootpaths - rootpath or rootpaths
+ * @return {object} obj - {w, h}
+ */
+async function guessPageSize2(rootpaths) {
+  if (!Array.isArray(rootpaths)) {
+    return await guessPageSize(rootpaths);
+  }
+
+  const lst = [];
+  let tn = 0;
+  for (let j = 0; j < rootpaths.length; ++j) {
+    const lstfn = fs.readdirSync(rootpaths[j]);
+    for (let i = 0; i < lstfn.length; ++i) {
+      if (isJPG(lstfn[i])) {
+        const cs = await getImageSize(path.join(rootpaths[j], lstfn[i]));
+        if (cs != undefined) {
+          const csi = findSize(lst, cs.w, cs.h);
+          if (csi == -1) {
+            lst.push({w: cs.w, h: cs.h, n: 1});
+          } else {
+            lst[csi].w = (lst[csi].w * lst[csi].n + cs.w) / (lst[csi].n + 1);
+            lst[csi].h = (lst[csi].h * lst[csi].n + cs.h) / (lst[csi].n + 1);
+
+            lst[csi].n++;
+          }
+
+          tn++;
+        }
+      }
+    }
+  }
+
+  if (lst.length > 0) {
+    for (let i = 0; i < lst.length; ++i) {
+      lst[i].tn = tn;
+      lst[i].per = lst[i].n / tn;
+    }
+
+    lst.sort((f, s) => {
+      if (f.per >= s.per) {
+        return -1;
+      }
+
+      return 1;
+    });
+
+    log.debug('guessPageSize2', lst);
+
+    if (lst[0].per > 0.15) {
+      return countSize(lst, 0.15);
+    } else if (lst[0].per > 0.05) {
+      return countSize(lst, 0.05);
+    }
+
+    return countSize(lst, 0);
+  }
+
+  return undefined;
+}
+
 exports.guessPageSize = guessPageSize;
+exports.guessPageSize2 = guessPageSize2;

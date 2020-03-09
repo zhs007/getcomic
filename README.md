@@ -93,6 +93,7 @@ npm i getcomic -g
 
 - 新增源 ``manhuagui``
 - 修正了某些漫画，对pdf页面大小判断不准确的bug
+- 可以将多话打包成1本
 
 ##### v0.2
 

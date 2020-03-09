@@ -1,5 +1,5 @@
 const {loadConfig, checkConfig} = require('./config.js');
-const {genPDF} = require('./pdf.utils');
+const {genPDF2} = require('./pdf.utils');
 const {webp2jpg} = require('./imgs.utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
@@ -61,6 +61,21 @@ async function start(fn) {
     );
     const comicjsonbuf = fs.readFileSync(comicjsonfn);
     const comicjson = JSON.parse(comicjsonbuf);
+
+    comicjson.books.sort((v1, v2) => {
+      if (v1.name < v2.name) {
+        return -1;
+      }
+
+      if (v1.name > v2.name) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    const curpaths = [];
+    let starti = 0;
     for (let i = 0; i < comicjson.books.length; ++i) {
       if (!cfg.bookid) {
         if (cfg.roottype >= 0 && cfg.roottype != comicjson.books[i].rootType) {
@@ -84,20 +99,57 @@ async function start(fn) {
           );
         }
 
-        await genPDF(
-            path.join(
-                cfg.comicrootpath,
-                cfg.comicid.toString(),
-                comicjson.books[i].title + '.pdf',
-            // cfg.comicid + '_' + comicjson.books[i].name + '.pdf',
-            ),
-            comicjson.books[i].title,
+        if (curpaths.length == 0) {
+          starti = i;
+        }
+
+        curpaths.push(
             path.join(
                 cfg.comicrootpath,
                 cfg.comicid.toString(),
                 comicjson.books[i].name,
             ),
         );
+
+        if (curpaths.length >= cfg.packagebooks) {
+          let title = '';
+          if (curpaths.length == 1) {
+            title = comicjson.books[i].title;
+          } else {
+            title =
+              comicjson.books[starti].title + '-' + comicjson.books[i].title;
+          }
+
+          await genPDF2(
+              path.join(
+                  cfg.comicrootpath,
+                  cfg.comicid.toString(),
+                  title + '.pdf',
+              ),
+              title,
+              curpaths,
+          );
+
+          curpaths.splice(0, curpaths.length);
+        } else if (i == comicjson.books.length - 1) {
+          let title = '';
+          if (curpaths.length == 1) {
+            title = comicjson.books[i].title;
+          } else {
+            title =
+              comicjson.books[starti].title + '-' + comicjson.books[i].title;
+          }
+
+          await genPDF2(
+              path.join(
+                  cfg.comicrootpath,
+                  cfg.comicid.toString(),
+                  title + '.pdf',
+              ),
+              title,
+              curpaths,
+          );
+        }
       }
 
       if (tgobj) {

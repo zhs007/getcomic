@@ -61,6 +61,17 @@ function checkConfig(cfg) {
     }
   }
 
+  if (cfg.packagebooks == undefined) {
+    cfg.packagebooks = 1;
+  } else if (typeof cfg.packagebooks != 'number') {
+    try {
+      const pb = parseInt(cfg.packagebooks);
+      cfg.packagebooks = pb;
+    } catch (err) {
+      cfg.packagebooks = 1;
+    }
+  }
+
   return undefined;
 }
 
