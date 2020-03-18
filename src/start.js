@@ -1,6 +1,7 @@
 const {loadConfig, checkConfig} = require('./config.js');
 const {genPDF2} = require('./pdf.utils');
 const {webp2jpg} = require('./imgs.utils');
+const {getNameNumber} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
 const path = require('path');
@@ -63,12 +64,25 @@ async function start(fn) {
     const comicjson = JSON.parse(comicjsonbuf);
 
     comicjson.books.sort((v1, v2) => {
-      if (v1.name < v2.name) {
+      const id1 = getNameNumber(v1.name);
+      const id2 = getNameNumber(v2.name);
+
+      if (id1 < id2) {
         return -1;
       }
 
-      if (v1.name > v2.name) {
+      if (id1 > id2) {
         return 1;
+      }
+
+      if (id1 == id2) {
+        if (v1.name < v2.name) {
+          return -1;
+        }
+
+        if (v1.name > v2.name) {
+          return 1;
+        }
       }
 
       return 0;
