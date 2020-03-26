@@ -18,3 +18,5 @@ outputpdf: true
 publishtelegraph: true
 # telegraph配置文件
 telegraphconfig: ./cfg/telegraph.yaml
+# timeout - 60s
+timeout: 60000

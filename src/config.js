@@ -72,6 +72,10 @@ function checkConfig(cfg) {
     }
   }
 
+  if (!cfg.timeout) {
+    cfg.timeout = 30 * 1000;
+  }
+
   return undefined;
 }
 

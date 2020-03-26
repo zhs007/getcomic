@@ -52,6 +52,7 @@ async function start(fn) {
       cfg.roottype,
       path.join(cfg.comicrootpath, cfg.comicid.toString()),
       cfg.source,
+      cfg.timeout,
   );
 
   try {
