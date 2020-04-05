@@ -1,6 +1,6 @@
 const {loadConfig, checkConfig} = require('./config.js');
-const {genPDF2} = require('./pdf.utils');
-const {webp2jpg} = require('./imgs.utils');
+const {genPDF3} = require('./pdf.utils');
+const {webp2png, jpg2png} = require('./imgs.utils');
 const {getNameNumber} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
@@ -105,7 +105,15 @@ async function start(fn) {
 
       if (cfg.outputpdf) {
         if (cfg.source == 'manhuagui') {
-          await webp2jpg(
+          await webp2png(
+              path.join(
+                  cfg.comicrootpath,
+                  cfg.comicid.toString(),
+                  comicjson.books[i].name,
+              ),
+          );
+        } else {
+          await jpg2png(
               path.join(
                   cfg.comicrootpath,
                   cfg.comicid.toString(),
@@ -135,7 +143,7 @@ async function start(fn) {
               comicjson.books[starti].title + '-' + comicjson.books[i].title;
           }
 
-          await genPDF2(
+          await genPDF3(
               path.join(
                   cfg.comicrootpath,
                   cfg.comicid.toString(),
@@ -155,7 +163,7 @@ async function start(fn) {
               comicjson.books[starti].title + '-' + comicjson.books[i].title;
           }
 
-          await genPDF2(
+          await genPDF3(
               path.join(
                   cfg.comicrootpath,
                   cfg.comicid.toString(),
