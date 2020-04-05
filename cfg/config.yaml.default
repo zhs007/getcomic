@@ -20,3 +20,5 @@ publishtelegraph: true
 telegraphconfig: ./cfg/telegraph.yaml
 # timeout - 60s
 timeout: 60000
+# 强制转换成png文件，部分站点jpg文件格式较奇怪，如果打包漫画出问题，建议强制转换为png下载。但强制转换png后，一般文件都会变大一些
+outputpng: false

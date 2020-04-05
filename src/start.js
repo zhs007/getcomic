@@ -1,5 +1,5 @@
 const {loadConfig, checkConfig} = require('./config.js');
-const {genPDF3} = require('./pdf.utils');
+const {genPDF2, genPDF3} = require('./pdf.utils');
 const {webp2png, jpg2png} = require('./imgs.utils');
 const {getNameNumber} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
@@ -104,22 +104,34 @@ async function start(fn) {
       }
 
       if (cfg.outputpdf) {
-        if (cfg.source == 'manhuagui') {
-          await webp2png(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  comicjson.books[i].name,
-              ),
-          );
+        if (cfg.outputpng) {
+          if (cfg.source == 'manhuagui') {
+            await webp2png(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    comicjson.books[i].name,
+                ),
+            );
+          } else {
+            await jpg2png(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    comicjson.books[i].name,
+                ),
+            );
+          }
         } else {
-          await jpg2png(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  comicjson.books[i].name,
-              ),
-          );
+          if (cfg.source == 'manhuagui') {
+            await webp2jpg(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    comicjson.books[i].name,
+                ),
+            );
+          }
         }
 
         if (curpaths.length == 0) {
@@ -143,15 +155,27 @@ async function start(fn) {
               comicjson.books[starti].title + '-' + comicjson.books[i].title;
           }
 
-          await genPDF3(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  title + '.pdf',
-              ),
-              title,
-              curpaths,
-          );
+          if (cfg.outputpng) {
+            await genPDF3(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    title + '.pdf',
+                ),
+                title,
+                curpaths,
+            );
+          } else {
+            await genPDF2(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    title + '.pdf',
+                ),
+                title,
+                curpaths,
+            );
+          }
 
           curpaths.splice(0, curpaths.length);
         } else if (i == comicjson.books.length - 1) {
@@ -163,15 +187,27 @@ async function start(fn) {
               comicjson.books[starti].title + '-' + comicjson.books[i].title;
           }
 
-          await genPDF3(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  title + '.pdf',
-              ),
-              title,
-              curpaths,
-          );
+          if (cfg.outputpng) {
+            await genPDF3(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    title + '.pdf',
+                ),
+                title,
+                curpaths,
+            );
+          } else {
+            await genPDF2(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    title + '.pdf',
+                ),
+                title,
+                curpaths,
+            );
+          }
         }
       }
 

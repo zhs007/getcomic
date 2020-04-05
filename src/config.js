@@ -76,6 +76,10 @@ function checkConfig(cfg) {
     cfg.timeout = 30 * 1000;
   }
 
+  if (cfg.outputpng == undefined) {
+    cfg.outputpng = false;
+  }
+
   return undefined;
 }
 
