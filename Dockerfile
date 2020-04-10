@@ -2,7 +2,8 @@ FROM node:lts-slim
 
 MAINTAINER zerro "zerrozhao@gmail.com"
 
-RUN apt-get update -y
+RUN apt-get update -y \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get install -y --no-install-recommends --no-install-suggests \
         gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 \
