@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:lts-slim
 
 MAINTAINER zerro "zerrozhao@gmail.com"
 

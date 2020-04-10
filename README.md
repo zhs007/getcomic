@@ -23,6 +23,8 @@
 因为是 docker，按道理很多 nas 环境也能运行（没环境测试）。  
 如果使用云服务器的话，建议内存至少有 2g。
 
+你也可以直接使用[这个项目](https://github.com/zhs007/dockerscripts/tree/master/getcomic)来部署。
+
 ### docker 下的使用说明
 
 1. 新建目录，可以是 getcomic，下面所有操作，都在该目录下进行。
@@ -119,6 +121,7 @@ npm i getcomic -g
 ##### v0.5
 
 - 新增源 `tvbsmh`
+- 优化了Docker镜像大小
 
 ##### v0.3
 
