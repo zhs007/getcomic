@@ -1,6 +1,6 @@
 const {loadConfig, checkConfig} = require('./config.js');
 const {genPDF2, genPDF3} = require('./pdf.utils');
-const {webp2png, jpg2png} = require('./imgs.utils');
+const {webp2jpg, webp2png, jpg2png} = require('./imgs.utils');
 const {getNameNumber} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
