@@ -1,4 +1,4 @@
-const {loadConfig, checkConfig} = require('./config.js');
+const {loadConfig, checkConfig, isValidBookid} = require('./config.js');
 const {genPDF2, genPDF3} = require('./pdf.utils');
 const {webp2jpg, webp2png, jpg2png} = require('./imgs.utils');
 const {getNameNumber} = require('./utils');
@@ -98,7 +98,7 @@ async function start(fn) {
         }
       } else {
         const cbret = parseComicBookURL(comicjson.books[i].url);
-        if (cbret instanceof Error || cbret.bookid != cfg.bookid) {
+        if (cbret instanceof Error || !isValidBookid(cfg, cbret.bookid)) {
           continue;
         }
       }

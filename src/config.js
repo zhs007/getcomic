@@ -83,5 +83,28 @@ function checkConfig(cfg) {
   return undefined;
 }
 
+/**
+ * isValidBookid
+ * @param {object} cfg - config
+ * @param {string} bookid - bookid
+ * @return {boolean} isvalid - is valid bookid
+ */
+function isValidBookid(cfg, bookid) {
+  if (!cfg.bookid) {
+    return true;
+  }
+
+  if (Array.isArray(cfg.bookid)) {
+    if (cfg.bookid.indexOf(bookid) >= 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  return cfg.bookid == bookid;
+}
+
 exports.loadConfig = loadConfig;
 exports.checkConfig = checkConfig;
+exports.isValidBookid = isValidBookid;
