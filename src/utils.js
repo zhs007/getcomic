@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 /**
  * getNameNumber - 第123回 -> 123
  * @param {string} name - name
@@ -32,4 +35,18 @@ function getNameNumber(name) {
   }
 }
 
+/**
+ * printInfo - print infomation
+ */
+function printInfo() {
+  const proj = JSON.parse(
+      fs.readFileSync(path.join(__dirname, '../package.json')),
+  );
+
+  console.log('getcomic v' + proj.version + '.');
+  console.log('The project\'s url is https://github.com/zhs007/getcomic .');
+  console.log('Author is  Zerro Zhao (zerrozhao@gmail.com).');
+}
+
 exports.getNameNumber = getNameNumber;
+exports.printInfo = printInfo;

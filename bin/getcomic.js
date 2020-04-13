@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const {start} = require('../src/start.js');
+const {printInfo} = require('../src/utils.js');
 const {log} = require('jarviscrawlercore');
 
 program
@@ -9,6 +10,8 @@ program
     .description('get comic')
     .action(function(cfgfn, options) {
       (async () => {
+        printInfo();
+
         await start(cfgfn);
 
         process.exit(-1);
