@@ -49,7 +49,7 @@ async function putImgsInPDF(doc, s, rootpath) {
 async function genPDF(fn, title, rootpath) {
   const s = await guessPageSize(rootpath);
   if (s == undefined) {
-    log.error('genPDF ' + rootpath + ' non-files');
+    log.error('genPDF ' + rootpaths + ' non-files');
 
     return;
   }
@@ -88,7 +88,7 @@ async function genPDF2(fn, title, rootpaths) {
 
   const s = await guessPageSize2(rootpaths);
   if (s == undefined) {
-    log.error('genPDF2 ' + rootpath + ' non-files');
+    log.error('genPDF2 ' + rootpaths + ' non-files');
 
     return;
   }
@@ -163,7 +163,7 @@ async function genPDF3(fn, title, rootpaths) {
 
   const s = await guessPageSize2(rootpaths);
   if (s == undefined) {
-    log.error('genPDF2 ' + rootpath + ' non-files');
+    log.error('genPDF2 ' + rootpaths + ' non-files');
 
     return;
   }
