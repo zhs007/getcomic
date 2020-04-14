@@ -68,6 +68,25 @@ async function start(fn) {
       const id1 = getNameNumber(v1.name);
       const id2 = getNameNumber(v2.name);
 
+      // 将无数字的排在最后
+      if (id1 < 0 && id2 < 0) {
+        if (v1.name < v2.name) {
+          return -1;
+        } else if (v1.name > v2.name) {
+          return 1;
+        }
+
+        return 0;
+      }
+
+      if (id1 < 0) {
+        return 1;
+      }
+
+      if (id2 < 0) {
+        return -1;
+      }
+
       if (id1 < id2) {
         return -1;
       }
