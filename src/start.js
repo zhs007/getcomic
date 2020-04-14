@@ -121,14 +121,14 @@ async function start(fn) {
           continue;
         }
 
-        console.log(JSON.stringify(cbret));
-        console.log(JSON.stringify(cfg));
+        // console.log(JSON.stringify(cbret));
+        // console.log(JSON.stringify(cfg));
 
         if (!isValidBookid(cfg, cbret.bookid)) {
           continue;
         }
 
-        console.log('I get it.');
+        // console.log('I get it.');
       }
 
       if (cfg.outputpdf) {
