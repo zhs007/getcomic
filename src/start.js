@@ -121,8 +121,8 @@ async function start(fn) {
           continue;
         }
 
-        console.log(JSON.parse(cbret));
-        console.log(JSON.parse(cfg));
+        console.log(JSON.stringify(cbret));
+        console.log(JSON.stringify(cfg));
 
         if (!isValidBookid(cfg, cbret.bookid)) {
           continue;
