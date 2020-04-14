@@ -117,10 +117,18 @@ async function start(fn) {
         }
       } else {
         const cbret = parseComicBookURL(comicjson.books[i].url);
-        console.log(cbret.toString());
-        if (cbret instanceof Error || !isValidBookid(cfg, cbret.bookid)) {
+        if (cbret instanceof Error) {
           continue;
         }
+
+        console.log(JSON.parse(cbret));
+        console.log(JSON.parse(cfg));
+
+        if (!isValidBookid(cfg, cbret.bookid)) {
+          continue;
+        }
+
+        console.log('I get it.');
       }
 
       if (cfg.outputpdf) {
