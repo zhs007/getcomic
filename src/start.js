@@ -242,40 +242,6 @@ async function start(fn) {
         // }
       }
 
-      if (curpaths.length > 0) {
-        let title = '';
-        if (curpaths.length == 1) {
-          title = comicjson.books[i].title;
-        } else {
-          title =
-            comicjson.books[starti].title + '-' + comicjson.books[i].title;
-        }
-
-        if (cfg.outputpng) {
-          await genPDF3(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  title + '.pdf',
-              ),
-              title,
-              curpaths,
-          );
-        } else {
-          await genPDF2(
-              path.join(
-                  cfg.comicrootpath,
-                  cfg.comicid.toString(),
-                  title + '.pdf',
-              ),
-              title,
-              curpaths,
-          );
-        }
-
-        curpaths.splice(0, curpaths.length);
-      }
-
       if (tgobj) {
         const page = await telegraph.publishImgs(
             tgobj,
@@ -298,6 +264,31 @@ async function start(fn) {
         );
         console.log('telegraph.publishImgs ' + JSON.stringify(page));
       }
+    }
+
+    if (curpaths.length > 0) {
+      let title = '';
+      if (curpaths.length == 1) {
+        title = comicjson.books[i].title;
+      } else {
+        title = comicjson.books[starti].title + '-' + comicjson.books[i].title;
+      }
+
+      if (cfg.outputpng) {
+        await genPDF3(
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            title,
+            curpaths,
+        );
+      } else {
+        await genPDF2(
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            title,
+            curpaths,
+        );
+      }
+
+      curpaths.splice(0, curpaths.length);
     }
 
     if (tgobj) {
