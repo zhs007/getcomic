@@ -1,6 +1,6 @@
 {
   "name": "getcomic",
-  "version": "0.5.26",
+  "version": "0.5.27",
   "description": "get comic",
   "main": "index.js",
   "scripts": {

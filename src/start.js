@@ -110,6 +110,7 @@ async function start(fn) {
 
     const curpaths = [];
     let starti = 0;
+    let endi = 0;
     for (let i = 0; i < comicjson.books.length; ++i) {
       if (!cfg.bookid) {
         if (cfg.roottype >= 0 && cfg.roottype != comicjson.books[i].rootType) {
@@ -132,6 +133,8 @@ async function start(fn) {
       }
 
       if (cfg.outputpdf) {
+        endi = i;
+
         if (cfg.outputpng) {
           if (cfg.source == 'manhuagui') {
             await webp2png(
@@ -269,9 +272,10 @@ async function start(fn) {
     if (curpaths.length > 0) {
       let title = '';
       if (curpaths.length == 1) {
-        title = comicjson.books[i].title;
+        title = comicjson.books[endi].title;
       } else {
-        title = comicjson.books[starti].title + '-' + comicjson.books[i].title;
+        title =
+          comicjson.books[starti].title + '-' + comicjson.books[endi].title;
       }
 
       if (cfg.outputpng) {
