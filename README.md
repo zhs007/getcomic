@@ -116,6 +116,10 @@ npm i getcomic -g
 
 少量测试用例，jest 即可执行。
 
+### 依赖
+
+- [jarviscrawlercore](https://github.com/zhs007/jarviscrawlercore): 本项目核心数据采集模块直接来源于 [jarviscrawlercore](https://github.com/zhs007/jarviscrawlercore)，[jarviscrawlercore](https://github.com/zhs007/jarviscrawlercore)还支持很多别的数据采集。
+
 ### 更新说明
 
 ##### v0.5
