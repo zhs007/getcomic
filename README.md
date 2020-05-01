@@ -65,6 +65,11 @@ telegraphconfig: ./cfg/telegraph.yaml
 timeout: 60000
 # 强制转换成png文件，部分站点jpg文件格式较奇怪，如果打包漫画出问题，建议强制转换为png下载。但强制转换png后，一般文件都会变大一些
 outputpng: false
+# 强制转换成jpeg文件，解决强制转换png后图片变大问题
+# outputjpg 的优先级高于 outputpng
+outputjpg: false
+# 强制转换成jpeg文件时，压缩率
+outputjpgquality: 70
 ```
 
 4. 如果希望发布到`telegraph`，还需要配置`cfg/telegraph.yaml`文件。
@@ -97,9 +102,9 @@ docker run -d -v $PWD/cfg:/usr/src/app/cfg -v $PWD/comic:/usr/src/app/comic --na
 - 当查看该进程已结束后，漫画就下载完了，可以通过 `docker ps` 查看。
 - 内部有各种错误处理机制，但万一被 ban 或者别的网络错误，可能会很长时间没有反应，这时重启即可，前面已经下载的不会重复下载，中间有缺页的也会再次补齐。
 - 如果很多 TIMEOUT 的报错，建议将 timeout 时间改长，这样对网络不好的环境更合适。
-- 配置文件里的 ``outputpng`` 要慎用，因为最终文件可能会变大到3倍左右，但有些时候，必须转换一次。
-- comicid、bookid这些配置，不同源站不一样，自己多看看吧，特别是点开一部漫画，分别看看不同章节，应该就能发现规律了。
-- packagebooks 是打包连载版用的，一般建议配置为8，就是8话打包为一本。
+- 配置文件里的 `outputpng` 要慎用，因为最终文件可能会变大到 3 倍左右，但有些时候，必须转换一次。
+- comicid、bookid 这些配置，不同源站不一样，自己多看看吧，特别是点开一部漫画，分别看看不同章节，应该就能发现规律了。
+- packagebooks 是打包连载版用的，一般建议配置为 8，就是 8 话打包为一本。
 - 如果使用 docker 方式，需要版本更新时，直接执行 `docker pull zerrozhao/getcomic` 即可更新到最新版，配置文件等都会向下兼容。
 - 如果是 npm 安装的，需要版本更新时，直接执行 `npm i getcomic -g` 即可。
 - 发布到`telegraph`时，前面会有一个`upload`图片的过程，由于`telegraph`对同 ip 上传图片频次有限制，可能会提示过段时间再试，建议间隔 1 小时重启，前面已经上传的文件不会重新上传。
@@ -128,7 +133,7 @@ npm i getcomic -g
 ##### v0.5
 
 - 新增源 `tvbsmh`
-- 优化了Docker镜像大小（降低了接近50%）
+- 优化了 Docker 镜像大小（降低了接近 50%）
 - 支持一次下载特定几本
 
 ##### v0.3

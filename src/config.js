@@ -84,6 +84,14 @@ function checkConfig(cfg) {
     cfg.excludebookid = [];
   }
 
+  if (cfg.outputjpg == undefined) {
+    cfg.outputjpg = false;
+  }
+
+  if (cfg.outputjpgquality == undefined) {
+    cfg.outputjpgquality = 70;
+  }
+
   return undefined;
 }
 

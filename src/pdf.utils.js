@@ -191,6 +191,84 @@ async function genPDF3(fn, title, rootpaths) {
   });
 }
 
+/**
+ * putImgsInPDF5 - put some images in a pdf file
+ * @param {PDFDocument} doc - document
+ * @param {object} s - {w, h}
+ * @param {string} rootpath - rootpath
+ * @param {string} extname - it's like .png or .jpeg
+ */
+async function putImgsInPDF5(doc, s, rootpath, extname) {
+  let i = 1;
+  while (true) {
+    const cifn = path.join(rootpath, i + extname);
+    if (!fs.existsSync(cifn)) {
+      break;
+    }
+
+    const isvalidimg = await isValidImage(cifn);
+    if (isvalidimg) {
+      try {
+        doc.image(cifn, 0, 0, {
+          fit: [s.w, s.h],
+          align: 'center',
+          valign: 'center',
+        });
+      } catch (err) {
+        doc.text('404 - Missing pages or damaged file ' + i);
+      }
+    } else {
+      doc.text('404 - Missing pages or damaged file ' + i);
+    }
+
+    doc.addPage();
+    i++;
+  }
+}
+
+/**
+ * genPDF5 - generate a pdf file v5
+ * @param {string} fn - filename
+ * @param {string} title - title
+ * @param {string | array} rootpaths - rootpath or rootpaths
+ * @param {string} extname - it's like .png or .jpeg
+ */
+async function genPDF5(fn, title, rootpaths, extname) {
+  if (!Array.isArray(rootpaths)) {
+    return genPDF(fn, title, rootpaths);
+  }
+
+  const s = await guessPageSize2(rootpaths);
+  if (s == undefined) {
+    log.error('genPDF5 ' + rootpaths + ' non-files');
+
+    return;
+  }
+
+  return new Promise(async (resolve, reject) => {
+    const doc = new PDFDocument({
+      // layout: 'landscape',
+      size: [s.w, s.h],
+    });
+
+    doc.info['Title'] = title;
+
+    const stream = doc.pipe(fs.createWriteStream(fn));
+
+    for (let i = 0; i < rootpaths.length; ++i) {
+      await putImgsInPDF5(doc, s, rootpaths[i], extname);
+    }
+
+    doc.end();
+    stream.on('finish', () => {
+      resolve();
+      // get a blob you can do whatever you like with
+      // const blob = stream.toBlob('application/pdf');
+    });
+  });
+}
+
 exports.genPDF = genPDF;
 exports.genPDF2 = genPDF2;
 exports.genPDF3 = genPDF3;
+exports.genPDF5 = genPDF5;

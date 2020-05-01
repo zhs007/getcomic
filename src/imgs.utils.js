@@ -91,6 +91,66 @@ async function jpg2png(inpath) {
   return undefined;
 }
 
+/**
+ * webp2jpeg - webp to jpeg
+ * @param {string} inpath - input path
+ * @return {error} err - error
+ */
+async function webp2jpeg(inpath) {
+  try {
+    const lstfn = fs.readdirSync(inpath);
+    for (let i = 0; i < lstfn.length; ++i) {
+      if (isWebp(lstfn[i])) {
+        const img = await sharp(path.join(inpath, lstfn[i]));
+        if (img) {
+          const arr = lstfn[i].split('.webp');
+          const img2 = await img.toFormat('jpeg');
+          await img2.toFile(path.join(inpath, arr[0] + '.jpeg'));
+
+          // if (img3) {
+          //   log.debug('webp2jpg ' + arr[0] + '.jpg' + ' ok.');
+          // }
+        }
+      }
+    }
+  } catch (err) {
+    log.error('webp2jpeg ' + inpath + ' error', err);
+  }
+
+  return undefined;
+}
+
+/**
+ * jpg2jpeg - jpg to jpeg
+ * @param {string} inpath - input path
+ * @return {error} err - error
+ */
+async function jpg2jpeg(inpath) {
+  try {
+    const lstfn = fs.readdirSync(inpath);
+    for (let i = 0; i < lstfn.length; ++i) {
+      if (isJPG(lstfn[i])) {
+        const img = await sharp(path.join(inpath, lstfn[i]));
+        if (img) {
+          const arr = lstfn[i].split('.jpg');
+          const img2 = await img.toFormat('jpeg');
+          await img2.toFile(path.join(inpath, arr[0] + '.jpeg'));
+
+          // if (img3) {
+          //   log.debug('webp2jpg ' + arr[0] + '.jpg' + ' ok.');
+          // }
+        }
+      }
+    }
+  } catch (err) {
+    log.error('jpg2jpeg ' + inpath + ' error', err);
+  }
+
+  return undefined;
+}
+
 exports.webp2jpg = webp2jpg;
 exports.webp2png = webp2png;
 exports.jpg2png = jpg2png;
+exports.webp2jpeg = webp2jpeg;
+exports.jpg2jpeg = jpg2jpeg;

@@ -1,6 +1,12 @@
 const {loadConfig, checkConfig, isValidBookid} = require('./config.js');
-const {genPDF2, genPDF3} = require('./pdf.utils');
-const {webp2jpg, webp2png, jpg2png} = require('./imgs.utils');
+const {genPDF2, genPDF3, genPDF5} = require('./pdf.utils');
+const {
+  webp2jpg,
+  webp2png,
+  jpg2png,
+  webp2jpeg,
+  jpg2jpeg,
+} = require('./imgs.utils');
 const {getNameNumber} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
@@ -136,7 +142,25 @@ async function start(fn) {
       if (cfg.outputpdf) {
         endi = i;
 
-        if (cfg.outputpng) {
+        if (cfg.outputjpg) {
+          if (cfg.source == 'manhuagui') {
+            await webp2jpeg(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    comicjson.books[i].name,
+                ),
+            );
+          } else {
+            await jpg2jpeg(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    comicjson.books[i].name,
+                ),
+            );
+          }
+        } else if (cfg.outputpng) {
           if (cfg.source == 'manhuagui') {
             await webp2png(
                 path.join(
@@ -187,7 +211,18 @@ async function start(fn) {
               comicjson.books[starti].title + '-' + comicjson.books[i].title;
           }
 
-          if (cfg.outputpng) {
+          if (cfg.outputjpg) {
+            await genPDF5(
+                path.join(
+                    cfg.comicrootpath,
+                    cfg.comicid.toString(),
+                    title + '.pdf',
+                ),
+                title,
+                curpaths,
+                '.jpeg',
+            );
+          } else if (cfg.outputpng) {
             await genPDF3(
                 path.join(
                     cfg.comicrootpath,
@@ -279,7 +314,14 @@ async function start(fn) {
           comicjson.books[starti].title + '-' + comicjson.books[endi].title;
       }
 
-      if (cfg.outputpng) {
+      if (cfg.outputjpg) {
+        await genPDF5(
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            title,
+            curpaths,
+            '.jpeg',
+        );
+      } else if (cfg.outputpng) {
         await genPDF3(
             path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
             title,
