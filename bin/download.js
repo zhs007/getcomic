@@ -39,7 +39,16 @@ program
       }
 
       (async () => {
-        await downloadComic(isdebug, comicid, bookid, roottype, output, source);
+        await downloadComic(
+            isdebug,
+            comicid,
+            bookid,
+            [],
+            roottype,
+            output,
+            source,
+            60000,
+        );
 
         process.exit(-1);
       })().catch((err) => {

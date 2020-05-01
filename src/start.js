@@ -49,6 +49,7 @@ async function start(fn) {
       cfg.isdebug,
       cfg.comicid,
       cfg.bookid,
+      cfg.excludebookid,
       cfg.roottype,
       path.join(cfg.comicrootpath, cfg.comicid.toString()),
       cfg.source,

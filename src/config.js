@@ -80,6 +80,10 @@ function checkConfig(cfg) {
     cfg.outputpng = false;
   }
 
+  if (!Array.isArray(cfg.excludebookid)) {
+    cfg.excludebookid = [];
+  }
+
   return undefined;
 }
 
@@ -90,6 +94,10 @@ function checkConfig(cfg) {
  * @return {boolean} isvalid - is valid bookid
  */
 function isValidBookid(cfg, bookid) {
+  if (cfg.excludebookid.indexOf(bookid)) {
+    return false;
+  }
+
   if (!cfg.bookid) {
     return true;
   }
