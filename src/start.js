@@ -117,21 +117,21 @@ async function start(fn) {
         if (cfg.roottype >= 0 && cfg.roottype != comicjson.books[i].rootType) {
           continue;
         }
-      } else {
-        const cbret = parseComicBookURL(comicjson.books[i].url);
-        if (cbret instanceof Error) {
-          continue;
-        }
-
-        // console.log(JSON.stringify(cbret));
-        // console.log(JSON.stringify(cfg));
-
-        if (!isValidBookid(cfg, cbret.bookid)) {
-          continue;
-        }
-
-        // console.log('I get it.');
       }
+
+      const cbret = parseComicBookURL(comicjson.books[i].url);
+      if (cbret instanceof Error) {
+        continue;
+      }
+
+      // console.log(JSON.stringify(cbret));
+      // console.log(JSON.stringify(cfg));
+
+      if (!isValidBookid(cfg, cbret.bookid)) {
+        continue;
+      }
+
+      // console.log('I get it.');
 
       if (cfg.outputpdf) {
         endi = i;

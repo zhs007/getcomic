@@ -94,7 +94,7 @@ function checkConfig(cfg) {
  * @return {boolean} isvalid - is valid bookid
  */
 function isValidBookid(cfg, bookid) {
-  if (cfg.excludebookid.indexOf(bookid)) {
+  if (cfg.excludebookid.indexOf(bookid) >= 0) {
     return false;
   }
 
