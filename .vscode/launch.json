@@ -18,8 +18,8 @@
             "request": "launch",
             "name": "start",
             "program": "${workspaceFolder}/bin/getcomic.js",
-            "args": ["start", "./cfg/config.yaml"],
-            "env": {"HTTP_PROXY":"http://127.0.0.1:1087"}
+            "args": ["start", "./cfg/config.yaml"]
+            // "env": {"HTTP_PROXY":"http://127.0.0.1:1087"}
         }
     ]
 }
