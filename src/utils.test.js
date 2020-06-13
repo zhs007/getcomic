@@ -13,3 +13,9 @@ test('utils.getNameNumber 456', () => {
 
   expect(ret).toBe(456);
 });
+
+test('utils.getNameNumber 第123.5话 - 456', () => {
+  const ret = getNameNumber('第123.5话 - 456');
+
+  expect(ret).toBe(123.5);
+});

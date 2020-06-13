@@ -11,13 +11,19 @@ function getNameNumber(name) {
   let isnumber = false;
   for (let i = 0; i < name.length; ++i) {
     if (isnumber) {
-      if (name.charAt(i) >= '0' && name.charAt(i) <= '9') {
+      if (
+        (name.charAt(i) >= '0' && name.charAt(i) <= '9') ||
+        name.charAt(i) == '.'
+      ) {
         str += name.charAt(i);
       } else {
         break;
       }
     } else {
-      if (name.charAt(i) >= '0' && name.charAt(i) <= '9') {
+      if (
+        (name.charAt(i) >= '0' && name.charAt(i) <= '9') ||
+        name.charAt(i) == '.'
+      ) {
         str += name.charAt(i);
         isnumber = true;
       }
@@ -29,7 +35,7 @@ function getNameNumber(name) {
   }
 
   try {
-    return parseInt(str);
+    return parseFloat(str);
   } catch (err) {
     return -1;
   }
