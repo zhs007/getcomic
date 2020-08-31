@@ -71,6 +71,8 @@ outputpng: false
 outputjpg: false
 # 强制转换成jpeg文件时，压缩率
 outputjpgquality: 70
+# 只打包，以comicrootpath来打包，里面应该有一层目录来做文件名打包
+onlypackage: false
 ```
 
 4. 如果希望发布到`telegraph`，还需要配置`cfg/telegraph.yaml`文件。
@@ -138,6 +140,7 @@ npm i getcomic -g
 - 支持一次下载特定几本
 - 支持一次下载排除特定几本
 - 支持下载完成后转换图片格式，可以转换为png或jpg（jpg性价比高一些），用来解决pdf打包不标准的图片可能显示错误的问题
+- 新增只打包本地图片文件
 
 ##### v0.3
 
