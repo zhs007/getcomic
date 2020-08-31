@@ -92,6 +92,10 @@ function checkConfig(cfg) {
     cfg.outputjpgquality = 70;
   }
 
+  if (cfg.onlypackage !== true) {
+    cfg.onlypackage = false;
+  }
+
   return undefined;
 }
 

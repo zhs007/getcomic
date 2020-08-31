@@ -31,3 +31,5 @@ outputpng: false
 outputjpg: false
 # 强制转换成jpeg文件时，压缩率
 outputjpgquality: 70
+# 只打包，以comicrootpath来打包，里面应该有一层目录来做文件名打包
+onlypackage: false

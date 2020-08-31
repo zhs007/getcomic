@@ -12,6 +12,7 @@ const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
 const path = require('path');
 const fs = require('fs');
+const {packagePath} = require('./package');
 
 /**
  * start
@@ -28,6 +29,12 @@ async function start(fn) {
   const cfgerr = checkConfig(cfg);
   if (cfgerr) {
     log.error('start.checkConfig error', cfgerr);
+
+    return;
+  }
+
+  if (cfg.onlypackage) {
+    await packagePath(cfg.comicrootpath);
 
     return;
   }
