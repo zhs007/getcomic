@@ -26,6 +26,8 @@ async function packagePath(inpath) {
     }
 
     if (lst.length > 0) {
+      lst.sort();
+
       const fnarr = inpath.split('/');
       const fn = fnarr[fnarr.length - 1];
 
