@@ -20,4 +20,4 @@ RUN npm i -dd
 
 COPY ./ ./
 
-CMD ["node", "./bin/getcomic.js", "start", "./cfg/config.yaml"]
+RUN npm run test
