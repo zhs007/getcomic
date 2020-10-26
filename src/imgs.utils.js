@@ -149,8 +149,49 @@ async function jpg2jpeg(inpath) {
   return undefined;
 }
 
+/**
+ * isSameImgExtName - is a same image type by ext name
+ * @param {string} fn - filename
+ * @param {string} extname - extname
+ * @return {boolean} iswebp - is a webp file
+ */
+function isSameImgExtName(fn, extname) {
+  const lfn = fn.toLowerCase();
+  const arr = lfn.split('.');
+  if (extname == '.' + arr[arr.length - 1]) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * countImgs - count images
+ * @param {string} inpath - input path
+ * @param {string} extname - extname, it's like .jpg
+ * @return {error} err - error
+ */
+function countImgs(inpath, extname) {
+  let nums = 0;
+
+  try {
+    const lstfn = fs.readdirSync(inpath);
+    for (let i = 0; i < lstfn.length; ++i) {
+      if (isSameImgExtName(lstfn[i], extname)) {
+        ++nums;
+      }
+    }
+  } catch (err) {
+    log.error('countImgs ' + inpath + ' error', err);
+  }
+
+  return nums;
+}
+
 exports.webp2jpg = webp2jpg;
 exports.webp2png = webp2png;
 exports.jpg2png = jpg2png;
 exports.webp2jpeg = webp2jpeg;
 exports.jpg2jpeg = jpg2jpeg;
+exports.countImgs = countImgs;
+exports.isSameImgExtName = isSameImgExtName;

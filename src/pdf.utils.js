@@ -5,6 +5,7 @@ const {guessPageSize, guessPageSize2, guessPageSize3} = require('./pagesize');
 const {log} = require('jarviscrawlercore');
 // const blobStream = require('blob-stream');
 const {isValidImage} = require('./img.utils');
+const {countImgs} = require('./imgs.utils');
 
 /**
  * putImgsInPDF - put some images in a pdf file
@@ -14,11 +15,18 @@ const {isValidImage} = require('./img.utils');
  */
 async function putImgsInPDF(doc, s, rootpath) {
   let i = 1;
+  const imgnums = countImgs(rootpath, '.jpg');
   while (true) {
     const cifn = path.join(rootpath, i + '.jpg');
     if (!fs.existsSync(cifn)) {
-      break;
+      if (imgnums <= 0) {
+        break;
+      } else {
+        continue;
+      }
     }
+
+    --imgnums;
 
     const isvalidimg = await isValidImage(cifn);
     if (isvalidimg) {
@@ -123,12 +131,19 @@ async function genPDF2(fn, title, rootpaths) {
  * @param {string} rootpath - rootpath
  */
 async function putImgsInPDF3(doc, s, rootpath) {
+  const imgnums = countImgs(rootpath, '.png');
   let i = 1;
   while (true) {
     const cifn = path.join(rootpath, i + '.png');
     if (!fs.existsSync(cifn)) {
-      break;
+      if (imgnums <= 0) {
+        break;
+      } else {
+        continue;
+      }
     }
+
+    --imgnums;
 
     const isvalidimg = await isValidImage(cifn);
     if (isvalidimg) {
@@ -199,12 +214,19 @@ async function genPDF3(fn, title, rootpaths) {
  * @param {string} extname - it's like .png or .jpeg
  */
 async function putImgsInPDF5(doc, s, rootpath, extname) {
+  const imgnums = countImgs(rootpath, extname);
   let i = 1;
   while (true) {
     const cifn = path.join(rootpath, i + extname);
     if (!fs.existsSync(cifn)) {
-      break;
+      if (imgnums <= 0) {
+        break;
+      } else {
+        continue;
+      }
     }
+
+    --imgnums;
 
     const isvalidimg = await isValidImage(cifn);
     if (isvalidimg) {

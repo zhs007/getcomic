@@ -1,6 +1,11 @@
 'use strict';
 
-const {webp2png, webp2jpg, jpg2png} = require('./imgs.utils');
+const {
+  webp2png,
+  webp2jpg,
+  jpg2png,
+  isSameImgExtName,
+} = require('./imgs.utils');
 const {isSameFile} = require('./test.utils');
 const fs = require('fs');
 
@@ -26,4 +31,8 @@ test('imgs.utils', async () => {
   fs.unlinkSync('./test/001s.png');
 
   expect(ret).toBe(true);
+});
+
+test('isSameImgExtName', () => {
+  expect(isSameImgExtName('a.png', '.png')).toBe(true);
 });
