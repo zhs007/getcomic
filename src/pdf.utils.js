@@ -214,7 +214,7 @@ async function genPDF3(fn, title, rootpaths) {
  * @param {string} extname - it's like .png or .jpeg
  */
 async function putImgsInPDF5(doc, s, rootpath, extname) {
-  const imgnums = countImgs(rootpath, extname);
+  let imgnums = countImgs(rootpath, extname);
   let i = 1;
   while (true) {
     const cifn = path.join(rootpath, i + extname);
