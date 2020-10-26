@@ -15,7 +15,7 @@ const {countImgs} = require('./imgs.utils');
  */
 async function putImgsInPDF(doc, s, rootpath) {
   let i = 1;
-  const imgnums = countImgs(rootpath, '.jpg');
+  let imgnums = countImgs(rootpath, '.jpg');
   while (true) {
     const cifn = path.join(rootpath, i + '.jpg');
     if (!fs.existsSync(cifn)) {
@@ -131,7 +131,7 @@ async function genPDF2(fn, title, rootpaths) {
  * @param {string} rootpath - rootpath
  */
 async function putImgsInPDF3(doc, s, rootpath) {
-  const imgnums = countImgs(rootpath, '.png');
+  let imgnums = countImgs(rootpath, '.png');
   let i = 1;
   while (true) {
     const cifn = path.join(rootpath, i + '.png');
