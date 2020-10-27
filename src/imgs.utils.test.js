@@ -5,6 +5,7 @@ const {
   webp2jpg,
   jpg2png,
   isSameImgExtName,
+  countImgs,
 } = require('./imgs.utils');
 const {isSameFile} = require('./test.utils');
 const fs = require('fs');
@@ -36,4 +37,8 @@ test('imgs.utils', async () => {
 
 test('isSameImgExtName', () => {
   expect(isSameImgExtName('a.png', '.png')).toBe(true);
+});
+
+test('countImgs', () => {
+  expect(countImgs('./test', '.jpg')).toBe(3);
 });
