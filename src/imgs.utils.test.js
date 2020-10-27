@@ -29,6 +29,7 @@ test('imgs.utils', async () => {
   ret = isSameFile('./test/002.png', './test/002s.png');
   fs.unlinkSync('./test/002.png');
   fs.unlinkSync('./test/001s.png');
+  fs.unlinkSync('./test/003.png');
 
   expect(ret).toBe(true);
 });

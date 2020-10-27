@@ -18,8 +18,8 @@
             "request": "launch",
             "name": "start",
             "program": "${workspaceFolder}/bin/getcomic.js",
-            "args": ["start", "./cfg/config.yaml"],
-            "runtimeExecutable": "~/.nvm/versions/node/v12.16.3/bin/node"
+            "args": ["start", "./cfg/config.yaml"]
+            // "runtimeExecutable": "~/.nvm/versions/node/v12.18.3/bin/node"
             // "env": {"HTTP_PROXY":"http://127.0.0.1:1087"}
         }
     ]
