@@ -259,6 +259,8 @@ async function putImgsInPDF5(doc, s, rootpath, extname) {
  * @param {string} extname - it's like .png or .jpeg
  */
 async function genPDF5(fn, title, rootpaths, extname) {
+  log.info("genPDF5 " + title + " " + rootpaths + " " + extname);
+
   if (!Array.isArray(rootpaths)) {
     return genPDF(fn, title, rootpaths);
   }
