@@ -1,11 +1,11 @@
-const PDFDocument = require("pdfkit");
-const fs = require("fs");
-const path = require("path");
-const { guessPageSize, guessPageSize2, guessPageSize3 } = require("./pagesize");
-const { log } = require("jarviscrawlercore");
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const path = require('path');
+const {guessPageSize, guessPageSize2, guessPageSize3} = require('./pagesize');
+const {log} = require('jarviscrawlercore');
 // const blobStream = require('blob-stream');
-const { isValidImage } = require("./img.utils");
-const { countImgs } = require("./imgs.utils");
+const {isValidImage} = require('./img.utils');
+const {countImgs} = require('./imgs.utils');
 
 /**
  * putImgsInPDF - put some images in a pdf file
@@ -15,9 +15,9 @@ const { countImgs } = require("./imgs.utils");
  */
 async function putImgsInPDF(doc, s, rootpath) {
   let i = 1;
-  let imgnums = countImgs(rootpath, ".jpg");
+  let imgnums = countImgs(rootpath, '.jpg');
   while (true) {
-    const cifn = path.join(rootpath, i + ".jpg");
+    const cifn = path.join(rootpath, i + '.jpg');
     if (!fs.existsSync(cifn)) {
       if (imgnums <= 0) {
         break;
@@ -34,14 +34,14 @@ async function putImgsInPDF(doc, s, rootpath) {
       try {
         doc.image(cifn, 0, 0, {
           fit: [s.w, s.h],
-          align: "center",
-          valign: "center",
+          align: 'center',
+          valign: 'center',
         });
       } catch (err) {
-        doc.text("404 - Missing pages or damaged file " + i);
+        doc.text('404 - Missing pages or damaged file ' + i);
       }
     } else {
-      doc.text("404 - Missing pages or damaged file " + i);
+      doc.text('404 - Missing pages or damaged file ' + i);
     }
 
     doc.addPage();
@@ -58,7 +58,7 @@ async function putImgsInPDF(doc, s, rootpath) {
 async function genPDF(fn, title, rootpath) {
   const s = await guessPageSize(rootpath);
   if (s == undefined) {
-    log.error("genPDF " + rootpaths + " non-files");
+    log.error('genPDF ' + rootpaths + ' non-files');
 
     return;
   }
@@ -69,14 +69,14 @@ async function genPDF(fn, title, rootpath) {
       size: [s.w, s.h],
     });
 
-    doc.info["Title"] = title;
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
 
     await putImgsInPDF(doc, s, rootpath);
 
     doc.end();
-    stream.on("finish", () => {
+    stream.on('finish', () => {
       resolve();
       // get a blob you can do whatever you like with
       // const blob = stream.toBlob('application/pdf');
@@ -97,7 +97,7 @@ async function genPDF2(fn, title, rootpaths) {
 
   const s = await guessPageSize2(rootpaths);
   if (s == undefined) {
-    log.error("genPDF2 " + rootpaths + " non-files");
+    log.error('genPDF2 ' + rootpaths + ' non-files');
 
     return;
   }
@@ -108,7 +108,7 @@ async function genPDF2(fn, title, rootpaths) {
       size: [s.w, s.h],
     });
 
-    doc.info["Title"] = title;
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
 
@@ -117,7 +117,7 @@ async function genPDF2(fn, title, rootpaths) {
     }
 
     doc.end();
-    stream.on("finish", () => {
+    stream.on('finish', () => {
       resolve();
       // get a blob you can do whatever you like with
       // const blob = stream.toBlob('application/pdf');
@@ -132,10 +132,10 @@ async function genPDF2(fn, title, rootpaths) {
  * @param {string} rootpath - rootpath
  */
 async function putImgsInPDF3(doc, s, rootpath) {
-  let imgnums = countImgs(rootpath, ".png");
+  let imgnums = countImgs(rootpath, '.png');
   let i = 1;
   while (true) {
-    const cifn = path.join(rootpath, i + ".png");
+    const cifn = path.join(rootpath, i + '.png');
     if (!fs.existsSync(cifn)) {
       if (imgnums <= 0) {
         break;
@@ -152,14 +152,14 @@ async function putImgsInPDF3(doc, s, rootpath) {
       try {
         doc.image(cifn, 0, 0, {
           fit: [s.w, s.h],
-          align: "center",
-          valign: "center",
+          align: 'center',
+          valign: 'center',
         });
       } catch (err) {
-        doc.text("404 - Missing pages or damaged file " + i);
+        doc.text('404 - Missing pages or damaged file ' + i);
       }
     } else {
-      doc.text("404 - Missing pages or damaged file " + i);
+      doc.text('404 - Missing pages or damaged file ' + i);
     }
 
     doc.addPage();
@@ -180,7 +180,7 @@ async function genPDF3(fn, title, rootpaths) {
 
   const s = await guessPageSize2(rootpaths);
   if (s == undefined) {
-    log.error("genPDF2 " + rootpaths + " non-files");
+    log.error('genPDF2 ' + rootpaths + ' non-files');
 
     return;
   }
@@ -191,7 +191,7 @@ async function genPDF3(fn, title, rootpaths) {
       size: [s.w, s.h],
     });
 
-    doc.info["Title"] = title;
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
 
@@ -200,7 +200,7 @@ async function genPDF3(fn, title, rootpaths) {
     }
 
     doc.end();
-    stream.on("finish", () => {
+    stream.on('finish', () => {
       resolve();
       // get a blob you can do whatever you like with
       // const blob = stream.toBlob('application/pdf');
@@ -236,14 +236,14 @@ async function putImgsInPDF5(doc, s, rootpath, extname) {
       try {
         doc.image(cifn, 0, 0, {
           fit: [s.w, s.h],
-          align: "center",
-          valign: "center",
+          align: 'center',
+          valign: 'center',
         });
       } catch (err) {
-        doc.text("404 - Missing pages or damaged file " + i);
+        doc.text('404 - Missing pages or damaged file ' + i);
       }
     } else {
-      doc.text("404 - Missing pages or damaged file " + i);
+      doc.text('404 - Missing pages or damaged file ' + i);
     }
 
     doc.addPage();
@@ -259,7 +259,7 @@ async function putImgsInPDF5(doc, s, rootpath, extname) {
  * @param {string} extname - it's like .png or .jpeg
  */
 async function genPDF5(fn, title, rootpaths, extname) {
-  log.info("genPDF5 " + title + " " + rootpaths + " " + extname);
+  log.info('genPDF5 ' + title + ' ' + rootpaths + ' ' + extname);
 
   if (!Array.isArray(rootpaths)) {
     return genPDF(fn, title, rootpaths);
@@ -267,7 +267,7 @@ async function genPDF5(fn, title, rootpaths, extname) {
 
   const s = await guessPageSize2(rootpaths);
   if (s == undefined) {
-    log.error("genPDF5 " + rootpaths + " non-files");
+    log.error('genPDF5 ' + rootpaths + ' non-files');
 
     return;
   }
@@ -278,7 +278,7 @@ async function genPDF5(fn, title, rootpaths, extname) {
       size: [s.w, s.h],
     });
 
-    doc.info["Title"] = title;
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
 
@@ -287,7 +287,7 @@ async function genPDF5(fn, title, rootpaths, extname) {
     }
 
     doc.end();
-    stream.on("finish", () => {
+    stream.on('finish', () => {
       resolve();
       // get a blob you can do whatever you like with
       // const blob = stream.toBlob('application/pdf');
@@ -311,14 +311,14 @@ async function putImgsInPDF6(doc, s, fn) {
     try {
       doc.image(fn, 0, 0, {
         fit: [s.w, s.h],
-        align: "center",
-        valign: "center",
+        align: 'center',
+        valign: 'center',
       });
     } catch (err) {
-      doc.text("404 - Missing pages or damaged file " + i);
+      doc.text('404 - Missing pages or damaged file ' + i);
     }
   } else {
-    doc.text("404 - Missing pages or damaged file " + i);
+    doc.text('404 - Missing pages or damaged file ' + i);
   }
 
   doc.addPage();
@@ -333,7 +333,7 @@ async function putImgsInPDF6(doc, s, fn) {
 async function genPDF6(fn, title, files) {
   const s = await guessPageSize3(files);
   if (s == undefined) {
-    log.error("genPDF6 non-files");
+    log.error('genPDF6 non-files');
 
     return;
   }
@@ -344,7 +344,7 @@ async function genPDF6(fn, title, files) {
       size: [s.w, s.h],
     });
 
-    doc.info["Title"] = title;
+    doc.info['Title'] = title;
 
     const stream = doc.pipe(fs.createWriteStream(fn));
 
@@ -353,7 +353,7 @@ async function genPDF6(fn, title, files) {
     }
 
     doc.end();
-    stream.on("finish", () => {
+    stream.on('finish', () => {
       resolve();
       // get a blob you can do whatever you like with
       // const blob = stream.toBlob('application/pdf');
