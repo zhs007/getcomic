@@ -54,6 +54,21 @@ function isJPG(fn) {
 }
 
 /**
+ * isJPG2 - is a jpg file
+ * @param {string} fn - filename
+ * @return {boolean} isjpg - is a jpg file
+ */
+function isJPG2(fn) {
+  const lfn = fn.toLowerCase();
+  const arr = lfn.split('.');
+  if (arr[arr.length - 1] == 'jpg') {
+    return true;
+  }
+
+  return false;
+}
+
+/**
  * isWebp - is a webp file
  * @param {string} fn - filename
  * @return {boolean} iswebp - is a webp file
@@ -71,4 +86,5 @@ function isWebp(fn) {
 exports.getImageSize = getImageSize;
 exports.isValidImage = isValidImage;
 exports.isJPG = isJPG;
+exports.isJPG2 = isJPG2;
 exports.isWebp = isWebp;

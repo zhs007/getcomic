@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const {log} = require('jarviscrawlercore');
-const {isWebp, isJPG} = require('./img.utils');
+const {isWebp, isJPG, isJPG2} = require('./img.utils');
 
 /**
  * webp2jpg - webp to jpg
@@ -129,7 +129,7 @@ async function jpg2jpeg(inpath) {
   try {
     const lstfn = fs.readdirSync(inpath);
     for (let i = 0; i < lstfn.length; ++i) {
-      if (isJPG(lstfn[i])) {
+      if (isJPG2(lstfn[i])) {
         const img = await sharp(path.join(inpath, lstfn[i]));
         if (img) {
           const arr = lstfn[i].split('.jpg');
