@@ -54,5 +54,22 @@ function printInfo() {
   console.log('Author is  Zerro Zhao (zerrozhao@gmail.com).');
 }
 
+/**
+ * fixFilename - fix filename
+ * @param {string} fn - filename
+ * @return {string} fn - a valid filename
+ */
+function fixFilename(fn) {
+  let fn1 = fn.trim();
+
+  const arr = ['\\', '/', '"', '\''];
+  for (let i = 0; i < arr.length; ++i) {
+    fn1 = fn1.replace(arr[i], '');
+  }
+
+  return fn1;
+}
+
 exports.getNameNumber = getNameNumber;
 exports.printInfo = printInfo;
+exports.fixFilename = fixFilename;

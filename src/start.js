@@ -7,7 +7,7 @@ const {
   webp2jpeg,
   jpg2jpeg,
 } = require('./imgs.utils');
-const {getNameNumber} = require('./utils');
+const {getNameNumber, fixFilename} = require('./utils');
 const {log, downloadComic, parseComicBookURL} = require('jarviscrawlercore');
 const {telegraph} = require('adarender');
 const path = require('path');
@@ -223,7 +223,7 @@ async function start(fn) {
                 path.join(
                     cfg.comicrootpath,
                     cfg.comicid.toString(),
-                    title + '.pdf',
+                    fixFilename(title) + '.pdf',
                 ),
                 title,
                 curpaths,
@@ -234,7 +234,7 @@ async function start(fn) {
                 path.join(
                     cfg.comicrootpath,
                     cfg.comicid.toString(),
-                    title + '.pdf',
+                    fixFilename(title) + '.pdf',
                 ),
                 title,
                 curpaths,
@@ -244,7 +244,7 @@ async function start(fn) {
                 path.join(
                     cfg.comicrootpath,
                     cfg.comicid.toString(),
-                    title + '.pdf',
+                    fixFilename(title) + '.pdf',
                 ),
                 title,
                 curpaths,
@@ -323,20 +323,20 @@ async function start(fn) {
 
       if (cfg.outputjpg) {
         await genPDF5(
-            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), fixFilename(title) + '.pdf'),
             title,
             curpaths,
             '.jpeg',
         );
       } else if (cfg.outputpng) {
         await genPDF3(
-            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), fixFilename(title) + '.pdf'),
             title,
             curpaths,
         );
       } else {
         await genPDF2(
-            path.join(cfg.comicrootpath, cfg.comicid.toString(), title + '.pdf'),
+            path.join(cfg.comicrootpath, cfg.comicid.toString(), fixFilename(title) + '.pdf'),
             title,
             curpaths,
         );
