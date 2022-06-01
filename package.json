@@ -24,7 +24,7 @@
     "commander": "^7.0.0",
     "jarviscrawlercore": "^0.6.48",
     "pdfkit": "^0.11.0",
-    "sharp": "^0.27.1",
+    "sharp": "^0.30.5",
     "yaml-js": "^0.2.3"
   },
   "devDependencies": {
